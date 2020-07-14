@@ -37,6 +37,11 @@ function promptManager() {
           },
           {
             type: "input",
+            name: "Name",
+            message: "What is your Name?"
+          },
+          {
+            type: "input",
             name: "email",
             message: "Where are you email?"
           },
@@ -61,6 +66,11 @@ function promptManager() {
           },
           {
             type: "input",
+            name: "Name",
+            message: "What is your Name?"
+          },
+          {
+            type: "input",
             name: "email",
             message: "Where are you email?"
           },
@@ -82,6 +92,11 @@ function promptManager() {
             type: "input",
             name: "ID",
             message: "What is your ID?"
+          },
+          {
+            type: "input",
+            name: "Name",
+            message: "What is your Name?"
           },
           {
             type: "input",
@@ -120,9 +135,9 @@ function promptManager() {
       }
   
   
-      await writeFileAsync("index.html", answerManager);
-      await writeFileAsync("index2.html", answerEngineer);
-      await writeFileAsync("index3.html", answerIntern);
+    //   await writeFileAsync("index.html", answerManager);
+    //   await writeFileAsync("index2.html", answerEngineer);
+    //   await writeFileAsync("index3.html", answerIntern);
   
       console.log("Successfully wrote to index.html");
     } catch(err) {
