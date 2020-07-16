@@ -37,4 +37,4 @@ No license need it
 ``` node run test```
 
 ## Questions
- -[Cherjios](https://github.com/Cherjios)
+ sc.lopezm@gmail.com
