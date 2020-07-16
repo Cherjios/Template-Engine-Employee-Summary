@@ -47,7 +47,8 @@ function promptManager() {
         const manager = new Manager(answers.Name, answers.ID,answers.email, answers.OfficeNumber); 
         teamMember.push(manager);
         createTeam();
-  })
+  });
+}
 
   function promptEngineer() {
     inquirer.prompt([
@@ -75,8 +76,9 @@ function promptManager() {
         const engineer = new Engineer(answers.Name, answers.ID,answers.email, answers.Github); 
         teamMember.push(engineer);
         createTeam();
-    })
+    });
   }
+
   function promptIntern() {
     inquirer.prompt([
         {
@@ -103,7 +105,8 @@ function promptManager() {
         const intern = new Intern(answers.Name, answers.ID,answers.email, answers.School); 
         teamMember.push(intern);
         createTeam();
-  })
+  });
+}
 
 function createTeam(){
     inquirer.prompt([
@@ -121,8 +124,10 @@ function createTeam(){
             case "Intern":
                 promptIntern();
                 break;
-            case "Intern":
-                Manager();
+            case "Manager":
+                promptManager();
+                break;
+            case "No More member":
                 break;
             default:
                 buildTeam();
