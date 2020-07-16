@@ -15,7 +15,7 @@ const util = require("util");
 
 const writeFileAsync = util.promisify(fs.writeFile);
 
-const teamMember = [];
+var team = [];
 
 
 // Write code to use inquirer to gather information about the development team members,
@@ -45,7 +45,7 @@ function promptManager() {
           }
     ]).then(answers=>{
         const manager = new Manager(answers.Name, answers.ID,answers.email, answers.OfficeNumber); 
-        teamMember.push(manager);
+        team.push(manager);
         createTeam();
   })
 }
@@ -74,7 +74,7 @@ function promptEngineer(){
           }
     ]).then(answers=>{
         const engineer = new Engineer(answers.Name, answers.ID,answers.email, answers.Github); 
-        teamMember.push(engineer);
+        team.push(engineer);
         createTeam();
     })
   }
@@ -103,11 +103,12 @@ function promptIntern(){
           }
     ]).then(answers=> {
         const intern = new Intern(answers.Name, answers.ID,answers.email, answers.School); 
-        teamMember.push(intern);
+        team.push(intern);
         createTeam();
   })
   
 }
+
 
 function createTeam(){
     inquirer.prompt([
@@ -129,27 +130,18 @@ function createTeam(){
                 promptManager();
                 break;
             case "No More member":
+                console.log(team);
+                let html = render(team);
+                writeFileAsync(outputPath, html, "utf8");
                 break;
             default:
                 createTeam()    
         }
     })
-    return teamMember;
+    return team;
 }
 
-async function init(){
-    try{
-         let getTeamMember = await createTeam();
-         console.log(getTeamMember);
-         await writeFileAsync(outputPath, render(getTeamMember), "utf8");
-
-    }catch (err) {
-        console.log(err);
-      }
-
-}
-
-init();
+createTeam();
 
 
 
