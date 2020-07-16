@@ -1,35 +1,28 @@
-// const Manager = require("./lib/Manager");
-// const Engineer = require("./lib/Engineer");
-// const Intern = require("./lib/Intern");
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
-// const OUTPUT_DIR = path.resolve(__dirname, "output");
-// const outputPath = path.join(OUTPUT_DIR, "team.html");
+const OUTPUT_DIR = path.resolve(__dirname, "output");
+const outputPath = path.join(OUTPUT_DIR, "team.html");
 
-// const render = require("./lib/htmlRenderer");
+const render = require("./lib/htmlRenderer");
 
 //Adding file 
 const util = require("util");
 
 const writeFileAsync = util.promisify(fs.writeFile);
 
+let teamMember = [];
+
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-function promptUser() {
-    return inquirer.prompt([
-        {
-            type: "input",
-            message: "What Roll do you want to add?",
-            name: "Roll",
-          }
-    ]);
-  }
 
 function promptManager() {
-    return inquirer.prompt([
+    inquirer.prompt([
         {
             type: "input",
             name: "ID",
@@ -49,16 +42,15 @@ function promptManager() {
             type: "input",
             name: "OfficeNumber",
             message: "What is your favorite Office Number?"
-          },
-          {
-            type: "input",
-            message: "Do you want to add another team member?",
-            name: "AddMember"
           }
-    ]);
-  }
+    ]).then(answers=>{
+        const manager = new Manager(answers.Name, answers.ID,answers.email, answers.OfficeNumber); 
+        teamMember.push(manager);
+        createTeam();
+  })
+
   function promptEngineer() {
-    return inquirer.prompt([
+    inquirer.prompt([
         {
             type: "input",
             name: "ID",
@@ -78,16 +70,15 @@ function promptManager() {
             type: "input",
             name: "Github",
             message: "What is your Github username?"
-          },
-          {
-            type: "input",
-            message: "Do you want to add another team member?",
-            name: "AddMember"
           }
-    ]);
+    ]).then(answers=>{
+        const engineer = new Engineer(answers.Name, answers.ID,answers.email, answers.Github); 
+        teamMember.push(engineer);
+        createTeam();
+    })
   }
   function promptIntern() {
-    return inquirer.prompt([
+    inquirer.prompt([
         {
             type: "input",
             name: "ID",
@@ -107,45 +98,42 @@ function promptManager() {
             type: "input",
             name: "School",
             message: "What is your School?"
-          },
-          {
-            type: "input",
-            name: "AddMember",
-            message: "Do you want to add another team member?"
-            
           }
-    ]);
-  }
+    ]).then(answers=>{
+        const intern = new Intern(answers.Name, answers.ID,answers.email, answers.School); 
+        teamMember.push(intern);
+        createTeam();
+  })
 
-  async function init() {
-    try {
-      var answers = await promptUser();
+function createTeam(){
+    inquirer.prompt([
+        {
+            type:"list", 
+            name:"TeamChoices",
+            message:"What kind of team do you want to add?",
+            choices:["Manager","Engineer","Intern","No More member",]
+        }
+    ]).then(userChoices => {
+        switch(userChoices.TeamChoices){
+            case "Engineer":
+                promptEngineer();
+                break;
+            case "Intern":
+                promptIntern();
+                break;
+            case "Intern":
+                Manager();
+                break;
+            default:
+                buildTeam();
+        }
+    })
+}
 
-      if(answers.Roll === 'Manager'){
-          var answerManager = await promptManager();
-      }
-      else if(answers.Roll === 'Engineer'){
-          var answerEngineer = await promptEngineer();
-      }
-      else if(answers.Roll === 'Intern'){
-          var answerIntern = await promptIntern();
-      }
-      if(answerManager.AddMember === 'Yes' || answerEngineer.AddMember === 'Yes' ||answerIntern.AddMember=== 'Yes' ){
-          answer =  promptUser(); 
-      }
+
   
-  
-    //   await writeFileAsync("index.html", answerManager);
-    //   await writeFileAsync("index2.html", answerEngineer);
-    //   await writeFileAsync("index3.html", answerIntern);
-  
-      console.log("Successfully wrote to index.html");
-    } catch(err) {
-      console.log(err);
-    }
-  }
-  
-  init();
+createTeam();
+
   
 
 // After the user has input all employees desired, call the `render` function (required
@@ -166,4 +154,4 @@ function promptManager() {
 // and Intern classes should all extend from a class named Employee; see the directions
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
+// for the provided `render` function to work!
