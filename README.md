@@ -5,12 +5,12 @@ Command line application in node.js. That will prompt the user for information a
   [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://GitHub.com/Naereen/ama)
 
 ## Table of Contents
-- [Installation](##Installation)
-- [Usage](##Usage)
-- [License](##License)
-- [Contributing](##Contributing)
-- [Tests](##Tests)
-- [Questions](##Questions)
+- [Installation](#Installation)
+- [Usage](#Usage)
+- [License](#License)
+- [Contributing](#Contributing)
+- [Tests](#Tests)
+- [Questions](#Questions)
 
 ## Installation
 ```
@@ -22,9 +22,10 @@ cd Template-Engine-Employee-Summary.git
 ## Usage
 ```
 node app.js
-
 ```
-![gif](ReadmeGenerator.gif)
+
+![video](video.mp4)
+[![Video]({image-url})]({video.mp4} "video")
 
 ## License
 No license need it
