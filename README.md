@@ -23,7 +23,7 @@ cd Template-Engine-Employee-Summary.git
 ```
 node app.js
 ```
-
+![team](team.gif)
 ![video](https://drive.google.com/file/d/1VZ-NoRsYAVHHlUmn8DEL0smw_6etV9fB/view?usp=sharing)
 
 
