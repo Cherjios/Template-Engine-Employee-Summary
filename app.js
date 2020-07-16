@@ -15,7 +15,7 @@ const util = require("util");
 
 const writeFileAsync = util.promisify(fs.writeFile);
 
-let teamMember = [];
+const teamMember = [];
 
 
 // Write code to use inquirer to gather information about the development team members,
@@ -47,10 +47,10 @@ function promptManager() {
         const manager = new Manager(answers.Name, answers.ID,answers.email, answers.OfficeNumber); 
         teamMember.push(manager);
         createTeam();
-  });
+  })
 }
 
-  function promptEngineer() {
+function promptEngineer(){
     inquirer.prompt([
         {
             type: "input",
@@ -76,10 +76,10 @@ function promptManager() {
         const engineer = new Engineer(answers.Name, answers.ID,answers.email, answers.Github); 
         teamMember.push(engineer);
         createTeam();
-    });
+    })
   }
 
-  function promptIntern() {
+function promptIntern(){
     inquirer.prompt([
         {
             type: "input",
@@ -101,11 +101,12 @@ function promptManager() {
             name: "School",
             message: "What is your School?"
           }
-    ]).then(answers=>{
+    ]).then(answers=> {
         const intern = new Intern(answers.Name, answers.ID,answers.email, answers.School); 
         teamMember.push(intern);
         createTeam();
-  });
+  })
+  
 }
 
 function createTeam(){
@@ -130,20 +131,32 @@ function createTeam(){
             case "No More member":
                 break;
             default:
-                buildTeam();
+                createTeam()    
         }
     })
+    return teamMember;
 }
 
+async function init(){
+    try{
+         let getTeamMember = await createTeam();
+         console.log(getTeamMember);
+         await writeFileAsync(outputPath, render(getTeamMember), "utf8");
 
-  
-createTeam();
+    }catch (err) {
+        console.log(err);
+      }
 
-  
+}
+
+init();
+
+
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
+
 
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
