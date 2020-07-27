@@ -14,7 +14,7 @@ Command line application in node.js. That will prompt the user for information a
 
 ## Installation
 ```
-git@github.com:Cherjios/Template-Engine-Employee-Summary.git
+git clone git@github.com:Cherjios/Template-Engine-Employee-Summary.git
 
 cd Template-Engine-Employee-Summary.git
 ```
